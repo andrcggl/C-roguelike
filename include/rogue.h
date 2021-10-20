@@ -3,6 +3,7 @@
 
 #include <ncurses.h>
 #include <stdlib.h>
+#include <time.h>
 
 typedef struct
 {
@@ -18,21 +19,29 @@ typedef struct
 
 typedef struct
 {
+   int height;
+   int width;
+   Position pos;
+   Position center;
+} Room;
+
+typedef struct
+{
   Position pos;
   char ch;
 } Entity;
 
-//draw.c functions
+// draw.c functions
 void drawMap(void);
 void drawEntity(Entity* entity);
 void drawEverything(void);
 
-//engine.c functions
+// engine.c functions
 void cursesSetup(void);
 void gameLoop(void);
 void closeGame(void);
 
-//map.c functions
+// map.c functions
 Tile** createMapTiles(void);
 Position setupMap(void);
 void freeMap(void);
@@ -41,6 +50,11 @@ void freeMap(void);
 Entity* createPlayer(Position start_pos);
 void handleInput(int input);
 void movePlayer(Position newPos);
+
+// room.c functions
+Room createRoom(int y, int x, int height, int width);
+void addRoomToMap(Room room);
+void connectRoomCenters(Position centerOne, Position centerTwo);
 
 // externs
 extern const int MAP_HEIGHT;
